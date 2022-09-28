@@ -13,6 +13,9 @@ class Node:
         # key: id of successor nodes
         # val: weight of edge
 
+    def __repr__(self) -> str:
+        return self.__id
+
     @property
     def id(self) -> str:
         return self.__id
@@ -25,7 +28,7 @@ class Node:
     def weights(self) -> dict:
         return self.__weights
     
-    def add_suc(self, node, weight: float) -> None:
+    def add_suc(self, node, weight: float = 1) -> None:
         """
         > The function takes a node and a weight as input and adds the node to the successors list of the
         current node
