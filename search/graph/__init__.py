@@ -1,6 +1,3 @@
-import enum
-
-
 class Node:
     def __init__(self, id: str) -> None:
         """
@@ -161,6 +158,12 @@ class Path:
         return self.__nodes
 
     def add_node(self, node: str) -> None:
+        """
+        It adds a node to the path, if the node is a successor of the end of the path.
+        
+        :param node: the node to add to the path
+        :type node: str
+        """
         assert node in self.__graph.nodes, "node does not exist in graph!"
         assert node not in self.__nodes, "node is repeated!"
         weights_dst = self.__graph.nodes[self.__dst].weights

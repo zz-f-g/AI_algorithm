@@ -13,12 +13,20 @@ class uniform_cost_search:
         self.__dst = dst
 
     def solve(self) -> graph.Path:
+        """
+        > The function takes a graph and a source and destination node, and returns the shortest path
+        between them
+        :return: A path from the source to the destination.
+        """
         best_path = graph.Path(self.__graph, self.__src)
         paths = []
         best_index = -1
         while (True):
             if (best_index >= 0):
-                best_path = paths.pop(best_index)
+                if (paths):
+                    best_path = paths.pop(best_index)
+                else:
+                    return None
             if (best_path.dst == self.__dst):
                 return best_path
             sucs = self.__graph.nodes[best_path.dst].weights
@@ -37,5 +45,5 @@ class uniform_cost_search:
 
 if __name__ == '__main__':
     from romania import Romania
-    problem = uniform_cost_search(Romania, 'Lugoj', 'Neamt')
+    problem = uniform_cost_search(Romania, 'Lugoj', 'Giurgiu')
     print(problem.solve())
