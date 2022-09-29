@@ -1,3 +1,6 @@
+import enum
+
+
 class Node:
     def __init__(self, id: str) -> None:
         """
@@ -135,6 +138,45 @@ class Graph:
             for suc in node.successors:
                 print(f'    --->{suc.id} ({node.weights[suc.id]})')
             print()
+
+class Path:
+    def __init__(self, graph: Graph, src: str) -> None:
+        assert src in graph.nodes, "source node doesn\'t exist in graph!"
+        self.__graph = graph
+        self.__src = src
+        self.__dst = src
+        self.__nodes = [src]
+        self.__cost = 0
+    
+    @property
+    def dst(self) -> str:
+        return self.__dst
+    
+    @property
+    def cost(self) -> float:
+        return self.__cost
+
+    @property
+    def nodes(self) -> list[str]:
+        return self.__nodes
+
+    def add_node(self, node: str) -> None:
+        assert node in self.__graph.nodes, "node does not exist in graph!"
+        assert node not in self.__nodes, "node is repeated!"
+        weights_dst = self.__graph.nodes[self.__dst].weights
+        assert node in weights_dst, "node is not one of successors of the end of path!"
+        self.__dst = node
+        self.__nodes.append(node)
+        self.__cost += weights_dst[node]
+    
+    def __str__(self) -> str:
+        res = ''
+        for i, node in enumerate(self.__nodes):
+            if (i):
+                res += '--->'
+            res += node
+        return res
+
 
 if __name__ == '__main__':
     graph = Graph()

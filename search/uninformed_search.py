@@ -1,6 +1,6 @@
 import graph
-from collections import deque
-from queue import Queue
+from collections import deque # stack
+from queue import Queue # queue
 
 class uninformed_search:
     def __init__(self, graph: graph.Graph, src: str, dst: str) -> None:
@@ -19,7 +19,7 @@ class uninformed_search:
         explored = set()
         frontier = Queue()
         frontier.put(self.__src)
-        while (frontier):
+        while (not frontier.empty()):
             node = frontier.get()
             if node in explored:
                 continue

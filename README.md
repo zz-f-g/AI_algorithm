@@ -4,6 +4,6 @@
 
 - [x] graph
 - [x] dfs & bfs
-- [ ] uniform cost search
+- [x] uniform cost search
 - [ ] greedy
 - [ ] Astar
