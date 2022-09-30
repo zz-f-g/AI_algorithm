@@ -6,4 +6,4 @@
 - [x] dfs & bfs
 - [x] uniform cost search
 - [ ] greedy
-- [ ] Astar
+- [x] Astar

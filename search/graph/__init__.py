@@ -1,5 +1,5 @@
 class Node:
-    def __init__(self, id: str) -> None:
+    def __init__(self, id: str, heuristics: float = 0) -> None:
         """
         This function initializes a node with an id and an empty list of successors and an empty
         dictionary of weights.
@@ -10,6 +10,7 @@ class Node:
         self.__id = id
         self.__successors = []
         self.__weights = {}
+        self.__h = heuristics
         # key: id of successor nodes
         # val: weight of edge
 
@@ -27,6 +28,10 @@ class Node:
     @property
     def weights(self) -> dict:
         return self.__weights
+    
+    @property
+    def heuristics(self) -> float:
+        return self.__h
     
     def add_suc(self, node, weight: float = 1) -> None:
         """
@@ -52,7 +57,7 @@ class Graph:
     def nodes(self) -> dict:
         return self.__nodes
     
-    def add_node(self, id_node: str):
+    def add_node(self, id_node: str, heuristics: float = 0):
         """
         It adds a node to the graph
         
@@ -60,7 +65,7 @@ class Graph:
         :type id_node: str
         """
         assert id_node not in self.__nodes, 'repeated node name!'
-        self.__nodes[id_node] = Node(id_node)
+        self.__nodes[id_node] = Node(id_node, heuristics)
     
     def connect_dir(self, node_src: str, node_dst: str, weight: float):
         """
@@ -131,7 +136,7 @@ class Graph:
         successor and the weight of the edge between the two nodes
         """
         for id, node in self.__nodes.items():
-            print(id)
+            print(f"{id} [{node.heuristics}]")
             for suc in node.successors:
                 print(f'    --->{suc.id} ({node.weights[suc.id]})')
             print()
@@ -183,9 +188,9 @@ class Path:
 
 if __name__ == '__main__':
     graph = Graph()
-    graph.add_node('a')
-    graph.add_node('b')
-    graph.add_node('c')
+    graph.add_node('a', 0)
+    graph.add_node('b', 0.5)
+    graph.add_node('c', 0.6)
     graph.connect_dir('a', 'b', 1.0)
     graph.connect_dir('b', 'c', 2.0)
     graph.connect_dir('a', 'c', 3.0)
